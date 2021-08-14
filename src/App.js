@@ -5,32 +5,36 @@ import RgbDisplay from './components/RgbDisplay'
 // hring information from all three rgbsliders, assign to respective colors in the RgbDisplay
 
 function App() {
-  const [ colorRed, setColorRed ] = useState(0);
-  const [ colorBlue, setColorBlue ] = useState(0);
-  const [ colorGreen, setColorGreen ] = useState(0);
-  let red = "Red";
-  let blue = "Blue";
-  let green = "Green";
-  const colorDisplay = useRef(`rgb(${colorRed},${colorGreen},${colorBlue})`);
+  const [ colors, setColors ] = useState({
+    red: 0,
+    blue: 0,
+    green: 0
+  });
+
+  function updateColor(name, value) {
+    setColors({...colors, [name]: value})
+  }
+
+  const colorDisplay = useRef(`rgb(${colors.red},${colors.green},${colors.blue})`);
 
   useEffect(()=>{
-    colorDisplay.current = `rgb(${colorRed},${colorGreen},${colorBlue})`;
+    colorDisplay.current = `rgb(${colors.red},${colors.green},${colors.blue})`;
   })
   
   return (
     <div className="App">
       <h1>Welcome to the RGBer!</h1>
       <hr />
-      <RgbSlider setColor={setColorRed} color={red} />
-      <p>{colorRed}</p>
+      <RgbSlider updateColor={updateColor} color="red" />
+      <p>Red</p>
       <hr />
-      <RgbSlider setColor={setColorBlue} color={blue} />
-      <p>{colorBlue}</p>
+      <RgbSlider updateColor={updateColor} color="blue" />
+      <p>Blue</p>
       <hr />
-      <RgbSlider setColor={setColorGreen} color={green} />
-      <p>{colorGreen}</p>
+      <RgbSlider updateColor={updateColor} color="green" />
+      <p>Green</p>
       <hr />
-      <RgbDisplay bgColor={colorDisplay.current} colorRed={colorRed} colorBlue={colorBlue} colorGreen={colorGreen} />
+      <RgbDisplay bgColor={colorDisplay.current} colorRed={colors.red} colorBlue={colors.blue} colorGreen={colors.green} />
     </div>
   );
 }
