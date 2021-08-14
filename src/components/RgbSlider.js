@@ -1,6 +1,9 @@
-function RgbSlider({setColor}) {
+function RgbSlider({ setColor, color }) {
     return (
-        <input type="range" onChange={(e)=>{setColor(e.target.value)}} min="0" max="255" />
+        <div>
+            <p>{color}</p>
+            <input type="range" onChange={(event)=>{setColor(event.target.value)}} min="0" max="255" />
+        </div>
     )
 }
 
